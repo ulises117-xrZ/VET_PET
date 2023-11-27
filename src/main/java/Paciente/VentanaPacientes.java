@@ -20,7 +20,7 @@ public class VentanaPacientes extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crear modelo de la tabla
+        
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
@@ -29,7 +29,7 @@ public class VentanaPacientes extends JFrame {
         modelo.addColumn("Categoría");
         modelo.addColumn("Fecha Inscripción");
 
-        // Agregar filas al modelo
+        
         for (Paciente paciente : listaPacientes) {
             Object[] fila = {
                     paciente.getID(),
@@ -42,16 +42,16 @@ public class VentanaPacientes extends JFrame {
             modelo.addRow(fila);
         }
 
-        // Crear tabla con el modelo
+        
         tablaPacientes = new JTable(modelo);
 
-        // Agregar la tabla a un JScrollPane
+        
         JScrollPane scrollPane = new JScrollPane(tablaPacientes);
 
-        // Agregar el JScrollPane a la ventana
+        
         add(scrollPane, BorderLayout.CENTER);
 
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        setLocationRelativeTo(null); 
         setVisible(true);
     }
 }

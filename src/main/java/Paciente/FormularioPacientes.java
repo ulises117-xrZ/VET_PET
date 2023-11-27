@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FormularioPacientes {
 
@@ -42,7 +43,6 @@ public class FormularioPacientes {
         campoNombrePaciente = new JTextField(20);
         campoNombreDueno = new JTextField(20);
 
-        // Agregar máscara al campo de fecha
         MaskFormatter formatter = null;
         try {
             formatter = new MaskFormatter("##-##-####");
@@ -114,15 +114,14 @@ public class FormularioPacientes {
         String altura = campoAltura.getText();
         String peso = campoPeso.getText();
         String pelaje = campoPelaje.getText();
-
-        // Validar campos
+        
         if (nombre.isEmpty() || nombreDueno.isEmpty() || fechaNacimiento.isEmpty() || edad.isEmpty()
                 || categoria.isEmpty() || raza.isEmpty() || sexo.isEmpty() || altura.isEmpty() || peso.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validar formato de fecha
+        
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             dateFormat.parse(fechaNacimiento);
@@ -130,8 +129,6 @@ public class FormularioPacientes {
             JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Utilice dd-MM-yyyy", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Validar formato de edad
         try {
             Integer.parseInt(edad);
         } catch (NumberFormatException ex) {
@@ -139,7 +136,7 @@ public class FormularioPacientes {
             return;
         }
 
-        // Validar formato de altura y peso
+        
         try {
             Double.parseDouble(altura);
             Double.parseDouble(peso);
@@ -152,6 +149,7 @@ public class FormularioPacientes {
         nuevoPaciente.setNombre(nombre);
         nuevoPaciente.setNombrePropietario(nombreDueno);
         nuevoPaciente.setFecha_nacimiento(fechaNacimiento);
+        nuevoPaciente.setFechaInscripcion(manager.formatDate(new Date()));
         nuevoPaciente.setEdad(Integer.parseInt(edad));
         nuevoPaciente.setCategoria(categoria);
         nuevoPaciente.setRaza(raza);
@@ -160,8 +158,6 @@ public class FormularioPacientes {
         nuevoPaciente.setAltura(Double.parseDouble(altura));
         nuevoPaciente.setPelaje(pelaje);
         manager.agregarPaciente(nuevoPaciente);
-
-        // Limpiar campos después de agregar
         campoNombrePaciente.setText("");
         campoNombreDueno.setText("");
         campoFechaNacimiento.setText("");

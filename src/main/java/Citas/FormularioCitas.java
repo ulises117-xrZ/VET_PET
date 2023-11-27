@@ -87,9 +87,9 @@ public class FormularioCitas {
         Paciente pacienteSeleccionado = (Paciente) listaPacientes.getSelectedItem();
         String motivoCita = campoMotivoCita.getText();
 
-        if (pacienteSeleccionado != null && validarFecha(diaHora)) {
+        if (pacienteSeleccionado != null && manager.validarFecha(diaHora)) {
             Citas nuevaCita = new Citas();
-            nuevaCita.setFechaCita(parseFecha(diaHora));
+            nuevaCita.setFechaCita(manager.parseFecha(diaHora));
             nuevaCita.setNombrePaciente(pacienteSeleccionado.getNombre());
             nuevaCita.setId_paciente(pacienteSeleccionado.getID());
             nuevaCita.setMotivoCita(motivoCita);
@@ -103,26 +103,8 @@ public class FormularioCitas {
         }
     }
 
-    private boolean validarFecha(String fecha) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy - HH:mm");
-        dateFormat.setLenient(false);
-
-        try {
-            dateFormat.parse(fecha);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    private Date parseFecha(String fecha) {
-        try {
-            return new SimpleDateFormat("dd-MM-yyyy - HH:mm").parse(fecha);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+ 
+   
 
     private static class PacienteCellRenderer extends DefaultListCellRenderer {
         @Override
